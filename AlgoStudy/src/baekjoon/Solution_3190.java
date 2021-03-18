@@ -8,63 +8,63 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /*
- * ¹ìÀÌ ±â¾î´Ù´Ï´Âµ¥ »ç°ú¸¦ ¸ÔÀ¸¸é ¹ì ±æÀÌ°¡ ´Ã¾î³²
- * º® ¶Ç´Â ÀÚ±â ÀÚ½ÅÀÇ ¸ö°ú ºÎµúÈ÷¸é °ÔÀÓÀÌ ³¡³²
- * º¸µå »óÇÏÁÂ¿ì ³¡Àº º®
- * N*N Á¤»ç°¢ º¸µå À§¿¡¼­ ÁøÇà (0<=N<=100)
- * »ç°ú (0<=K<=100)
- * ½ÃÀÛÇÒ ¶§ ¹ìÀº ¸ÇÀ§¸ÇÀÚÃø¿¡ À§Ä¡, ¹ì ±æÀÌ 1, Ã³À½¿¡ ¿À¸¥ÂÊÀ¸·Î ÇâÇÔ
- * -¸ÊÀº ¸ö±æÀÌ¸¦ ´Ã·Á ¸Ó¸®¸¦ ´ÙÀ½ Ä­¿¡ À§Ä¡½ÃÅ²´Ù
- * -ÀÌµ¿ÇÑ Ä­¿¡ »ç°ú°¡ ÀÖ´Ù¸é »ç°ú°¡ ¾ø¾îÁö°í ²¿¸®´Â ¿òÁöÀÌÁö ¾Ê´Â´Ù
- * -ÀÌµ¿ÇÑ Ä­¿¡ »ç°ú°¡ ¾ø´Ù¸é ¸ö±æÀÌ¸¦ ÁÙ¿©¼­ ²¿¸®°¡ À§Ä¡ÇÑ Ä­À» ºñ¿öÁØ´Ù
- * »ç°úÀÇ À§Ä¡¿Í ¹ìÀÇ ÀÌµ¿°æ·Î°¡ ÁÖ¾îÁú¶§ ¸îÃÊ¿¡ ³¡³ª´ÂÁö °è»ê
- * (1,1)¿¡´Â »ç°ú x
- * ¹ì ¹æÇâ º¯È¯ È½¼ö L (1<=L<=100)
- * °ÔÀÓ ½ÃÀÛ ½Ã°£À¸·ÎºÎÅÍ xÃÊ°¡ ³¡³­ µÚ¿¡ ('L','D)¿ŞÂÊ, ¿À¸¥ÂÊÀ¸·Î 90µµ È¸Àü½ÃÅ²´Ù´Â ¶æ (x<=10000)
+ * ë±€ì´ ê¸°ì–´ë‹¤ë‹ˆëŠ”ë° ì‚¬ê³¼ë¥¼ ë¨¹ìœ¼ë©´ ë±€ ê¸¸ì´ê°€ ëŠ˜ì–´ë‚¨
+ * ë²½ ë˜ëŠ” ìê¸° ìì‹ ì˜ ëª¸ê³¼ ë¶€ë”ªíˆë©´ ê²Œì„ì´ ëë‚¨
+ * ë³´ë“œ ìƒí•˜ì¢Œìš° ëì€ ë²½
+ * N*N ì •ì‚¬ê° ë³´ë“œ ìœ„ì—ì„œ ì§„í–‰ (0<=N<=100)
+ * ì‚¬ê³¼ (0<=K<=100)
+ * ì‹œì‘í•  ë•Œ ë±€ì€ ë§¨ìœ„ë§¨ìì¸¡ì— ìœ„ì¹˜, ë±€ ê¸¸ì´ 1, ì²˜ìŒì— ì˜¤ë¥¸ìª½ìœ¼ë¡œ í–¥í•¨
+ * -ë§µì€ ëª¸ê¸¸ì´ë¥¼ ëŠ˜ë ¤ ë¨¸ë¦¬ë¥¼ ë‹¤ìŒ ì¹¸ì— ìœ„ì¹˜ì‹œí‚¨ë‹¤
+ * -ì´ë™í•œ ì¹¸ì— ì‚¬ê³¼ê°€ ìˆë‹¤ë©´ ì‚¬ê³¼ê°€ ì—†ì–´ì§€ê³  ê¼¬ë¦¬ëŠ” ì›€ì§€ì´ì§€ ì•ŠëŠ”ë‹¤
+ * -ì´ë™í•œ ì¹¸ì— ì‚¬ê³¼ê°€ ì—†ë‹¤ë©´ ëª¸ê¸¸ì´ë¥¼ ì¤„ì—¬ì„œ ê¼¬ë¦¬ê°€ ìœ„ì¹˜í•œ ì¹¸ì„ ë¹„ì›Œì¤€ë‹¤
+ * ì‚¬ê³¼ì˜ ìœ„ì¹˜ì™€ ë±€ì˜ ì´ë™ê²½ë¡œê°€ ì£¼ì–´ì§ˆë•Œ ëª‡ì´ˆì— ëë‚˜ëŠ”ì§€ ê³„ì‚°
+ * (1,1)ì—ëŠ” ì‚¬ê³¼ x
+ * ë±€ ë°©í–¥ ë³€í™˜ íšŸìˆ˜ L (1<=L<=100)
+ * ê²Œì„ ì‹œì‘ ì‹œê°„ìœ¼ë¡œë¶€í„° xì´ˆê°€ ëë‚œ ë’¤ì— ('L','D)ì™¼ìª½, ì˜¤ë¥¸ìª½ìœ¼ë¡œ 90ë„ íšŒì „ì‹œí‚¨ë‹¤ëŠ” ëœ» (x<=10000)
  * */
 public class Solution_3190 {
 	static int N, K, L, answer;
 	static int[][] board, move;
 	static List<Point> snake;
-	static int[] di = {0,1,0,-1}; //¿ìÇÏÁÂ»ó
-	static int[] dj = {1,0,-1,0}; //¿ìÇÏÁÂ»ó
+	static int[] di = {0,1,0,-1}; //ìš°í•˜ì¢Œìƒ
+	static int[] dj = {1,0,-1,0}; //ìš°í•˜ì¢Œìƒ
 	static Point snakeHead, snakeTail;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine()); //º¸µå Å©±â
-		K = Integer.parseInt(br.readLine()); //»ç°ú °³¼ö
-		snake = new ArrayList<Point>(); //¹ì
+		N = Integer.parseInt(br.readLine()); //ë³´ë“œ í¬ê¸°
+		K = Integer.parseInt(br.readLine()); //ì‚¬ê³¼ ê°œìˆ˜
+		snake = new ArrayList<Point>(); //ë±€
 		board = new int[N][N];
 		answer = 0;
 		for(int i=0;i<K;i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			int ai = Integer.parseInt(st.nextToken());
 			int aj = Integer.parseInt(st.nextToken());
-			board[ai-1][aj-1] = 1; //º¸µå¿¡ »ç°úÇ¥½Ã
+			board[ai-1][aj-1] = 1; //ë³´ë“œì— ì‚¬ê³¼í‘œì‹œ
 		}
-		L = Integer.parseInt(br.readLine()); //ÀÌµ¿ È½¼ö
+		L = Integer.parseInt(br.readLine()); //ì´ë™ íšŸìˆ˜
 		move = new int[L][2];
 		for(int i=0;i<L;i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			move[i][0] = Integer.parseInt(st.nextToken());
 			char temp = st.nextToken().charAt(0);
-			move[i][1] = temp=='D'?1:0; //¿ŞÂÊ È¸Àü 0, ¿À¸¥ÂÊ È¸Àü 1
+			move[i][1] = temp=='D'?1:0; //ì™¼ìª½ íšŒì „ 0, ì˜¤ë¥¸ìª½ íšŒì „ 1
 		}
 		
-		//------------------------½ÃÀÛ-----------------------------
+		//------------------------ì‹œì‘-----------------------------
 		snake.add(new Point(0,0));
 		snakeHead = snake.get(0);
 		snakeTail = snake.get(0);
-		board[0][0] = 2; //¹ìÀÖ´Â Ä­ Ç¥½Ã
+		board[0][0] = 2; //ë±€ìˆëŠ” ì¹¸ í‘œì‹œ
 		
 		boolean end = false;
 		int d = 0;
 		for(int i=0;i<L;i++) {
-			for(int t=answer;t<move[i][0];t++) { //´ÙÀ½ È¸Àü±îÁö ÇöÀç ÀÌµ¿ ¹æÇâÀ¸·Î ¹ìÀÌµ¿ (½ÃÀÛÀ» ÇöÀç Áö³­ ½Ã°£À¸·Î ¼³Á¤)
+			for(int t=answer;t<move[i][0];t++) { //ë‹¤ìŒ íšŒì „ê¹Œì§€ í˜„ì¬ ì´ë™ ë°©í–¥ìœ¼ë¡œ ë±€ì´ë™ (ì‹œì‘ì„ í˜„ì¬ ì§€ë‚œ ì‹œê°„ìœ¼ë¡œ ì„¤ì •)
 				end = go(d);
 				if(end) break;
 			}
-			//¹æÇâ ÀüÈ¯
+			//ë°©í–¥ ì „í™˜
 			d = move[i][1]==0?(d+3)%4:(d+1)%4;
 			if(end) break;
 		}
@@ -78,13 +78,13 @@ public class Solution_3190 {
 		int ni = snakeHead.i+di[d];
 		int nj = snakeHead.j+dj[d];
 		if(ni>=0 && ni<N && nj>=0 && nj<N && board[ni][nj] != 2) {
-			//´ÙÀ½ ÀÌµ¿ÇÒ Ä­ÀÌ º®ÀÌ ¾Æ´Ï°í ³» ¸öµµ ¾Æ´Ï¸é
-			//Çìµå ÀÌµ¿
+			//ë‹¤ìŒ ì´ë™í•  ì¹¸ì´ ë²½ì´ ì•„ë‹ˆê³  ë‚´ ëª¸ë„ ì•„ë‹ˆë©´
+			//í—¤ë“œ ì´ë™
 			Point newHead = new Point(ni,nj);
 			snake.add(0, newHead);
 			snakeHead = newHead;
-			if(board[ni][nj]!=1) {//ÀÌµ¿ÇÑ Ä­¿¡ »ç°ú°¡ ¾øÀ¸¸é
-				//Å×ÀÏ ÀÌµ¿
+			if(board[ni][nj]!=1) {//ì´ë™í•œ ì¹¸ì— ì‚¬ê³¼ê°€ ì—†ìœ¼ë©´
+				//í…Œì¼ ì´ë™
 				board[snakeTail.i][snakeTail.j] = 0;
 				snake.remove(snake.size()-1);
 				snakeTail = snake.get(snake.size()-1);
@@ -94,7 +94,7 @@ public class Solution_3190 {
 		}else {
 			return true;
 		}
-		answer++; //½Ã°£ Áõ°¡
+		answer++; //ì‹œê°„ ì¦ê°€
 		return false;
 	}
 	static class Point{

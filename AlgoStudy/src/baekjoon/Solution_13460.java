@@ -12,17 +12,17 @@ public class Solution_13460 {
 	static char board[][];
 	static boolean visit[][][][];
 	static Point red, blue, goal;
-	static int[] di = {0,1,0,-1}; //¿ìÇÏÁÂ»ó
-	static int[] dj = {1,0,-1,0}; //¿ìÇÏÁÂ»ó
+	static int[] di = {0,1,0,-1}; //ìš°í•˜ì¢Œìƒ
+	static int[] dj = {1,0,-1,0}; //ìš°í•˜ì¢Œìƒ
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken()); // º¸µåÀÇ ¼¼·Î ±æÀÌ
-		M = Integer.parseInt(st.nextToken()); // º¸µåÀÇ °¡·Î ±æÀÌ
+		N = Integer.parseInt(st.nextToken()); // ë³´ë“œì˜ ì„¸ë¡œ ê¸¸ì´
+		M = Integer.parseInt(st.nextToken()); // ë³´ë“œì˜ ê°€ë¡œ ê¸¸ì´
 		board = new char[N][M];
 		visit = new boolean[N][M][N][M];
 		answer = 0;
-		// º¸µå »óÅÂ ÀúÀå, »¡°£ ±¸½½, ÆÄ¶õ ±¸½½, ±¸¸Û À§Ä¡ ÀúÀå
+		// ë³´ë“œ ìƒíƒœ ì €ì¥, ë¹¨ê°„ êµ¬ìŠ¬, íŒŒë€ êµ¬ìŠ¬, êµ¬ë© ìœ„ì¹˜ ì €ì¥
 		for(int i=0;i<N;i++) {
 			String temp = br.readLine();
 			for(int j=0;j<M;j++) {
@@ -43,29 +43,29 @@ public class Solution_13460 {
 		queue.add(new Point(blue.i, blue.j));
 		visit[red.i][red.j][blue.i][blue.j] = true;
 		
-		boolean r_check = false; // »¡°£ ±¸½½ Å»Ãâ ¿©ºÎ
-		// ¹æÇâ ¿òÁ÷ÀÌ±â
-		for(int i=0;i<10;i++) { //ÃÖ´ë 10¹ø
+		boolean r_check = false; // ë¹¨ê°„ êµ¬ìŠ¬ íƒˆì¶œ ì—¬ë¶€
+		// ë°©í–¥ ì›€ì§ì´ê¸°
+		for(int i=0;i<10;i++) { //ìµœëŒ€ 10ë²ˆ
 			if(!queue.isEmpty()) {
 				int size = queue.size();
-				for(int j=0;j<size/2;j++) { //ÇÑ¹ø ÀÌµ¿ÇÒ °æ¿ìÀÇ ¸ğµç Æ÷ÀÎÆ® ´Ù »©³»±â
+				for(int j=0;j<size/2;j++) { //í•œë²ˆ ì´ë™í•  ê²½ìš°ì˜ ëª¨ë“  í¬ì¸íŠ¸ ë‹¤ ë¹¼ë‚´ê¸°
 					Point r = queue.poll();
 					Point b = queue.poll();
 					for(int d=0;d<4;d++) {
 						Point nr = new Point(r.i, r.j);
 						Point nb = new Point(b.i, b.j);
 						
-						int bm = move(nb,d); //ÆÄ¶õ ±¸½½ ¸ÕÀú ÀÌµ¿
-						if(board[nb.i][nb.j] == 'O') { //ÆÄ¶õ ±¸½½ÀÌ ±¸¸Û¿¡ ºüÁö¸é °æ¿ì Á¦¿Ü
+						int bm = move(nb,d); //íŒŒë€ êµ¬ìŠ¬ ë¨¼ì € ì´ë™
+						if(board[nb.i][nb.j] == 'O') { //íŒŒë€ êµ¬ìŠ¬ì´ êµ¬ë©ì— ë¹ ì§€ë©´ ê²½ìš° ì œì™¸
 							continue;
 						}
-						int rm = move(nr,d);//»¡°£ ±¸½½ ÀÌµ¿
-						if(board[nr.i][nr.j] == 'O') { //»¡°£ ±¸½½ ±¸¸Û¿¡ ºüÁö¸é ¼º°ø, ¹İº¹¹® ³ª°¡±â
+						int rm = move(nr,d);//ë¹¨ê°„ êµ¬ìŠ¬ ì´ë™
+						if(board[nr.i][nr.j] == 'O') { //ë¹¨ê°„ êµ¬ìŠ¬ êµ¬ë©ì— ë¹ ì§€ë©´ ì„±ê³µ, ë°˜ë³µë¬¸ ë‚˜ê°€ê¸°
 							r_check = true;
 							break;
 						}
 						
-						if(nb.i == nr.i && nb.j == nr.j) { //µÎ ±¸½½ÀÌ °°Àº À§Ä¡¿¡ Á¸ÀçÇÏ¸é ´õ ¸¹ÀÌ ¿òÁ÷ÀÎ ±¸½½ÀÌ ÇÑÄ­ µÚ·Î ÀÌµ¿
+						if(nb.i == nr.i && nb.j == nr.j) { //ë‘ êµ¬ìŠ¬ì´ ê°™ì€ ìœ„ì¹˜ì— ì¡´ì¬í•˜ë©´ ë” ë§ì´ ì›€ì§ì¸ êµ¬ìŠ¬ì´ í•œì¹¸ ë’¤ë¡œ ì´ë™
 							if(bm > rm) {
 								nb.i -= di[d];
 								nb.j -= dj[d];
@@ -75,21 +75,21 @@ public class Solution_13460 {
 							}
 						}
 						
-						if(!visit[nr.i][nr.j][nb.i][nb.j]) { //ÇöÀç µÎ ±¸½½ÀÇ À§Ä¡°¡ ÀÌÀü¿¡ ¾ø´ø °æ¿ìÀÌ¸é Å¥¿¡ Ãß°¡
+						if(!visit[nr.i][nr.j][nb.i][nb.j]) { //í˜„ì¬ ë‘ êµ¬ìŠ¬ì˜ ìœ„ì¹˜ê°€ ì´ì „ì— ì—†ë˜ ê²½ìš°ì´ë©´ íì— ì¶”ê°€
 							queue.add(nr);
 							queue.add(nb);
 							visit[nr.i][nr.j][nb.i][nb.j] = true;
 						}
-					} //¹æÇâ
+					} //ë°©í–¥
 					if(r_check) break;
-				} // ±¸½½ À§Ä¡
+				} // êµ¬ìŠ¬ ìœ„ì¹˜
 			} //if
-			answer++; //ÀÌµ¿ È½¼ö Áõ°¡
+			answer++; //ì´ë™ íšŸìˆ˜ ì¦ê°€
 			if(r_check) break;
-		}// 10¹ø
-		if(!r_check) answer = -1; //10¹øÀÇ ÀÌµ¿µ¿¾È »¡°£ ±¸½½ÀÌ Å»ÃâÇÏÁö ¸øÇßÀ¸¸é -1
+		}// 10ë²ˆ
+		if(!r_check) answer = -1; //10ë²ˆì˜ ì´ë™ë™ì•ˆ ë¹¨ê°„ êµ¬ìŠ¬ì´ íƒˆì¶œí•˜ì§€ ëª»í–ˆìœ¼ë©´ -1
 	}
-	// º®ÀÌ³ª ±¸¸Û¸¸³ª±â Àü±îÁö ÀÌµ¿
+	// ë²½ì´ë‚˜ êµ¬ë©ë§Œë‚˜ê¸° ì „ê¹Œì§€ ì´ë™
 	static int move(Point p, int d) {
 		int move_dist = 0;
 		while(true) {

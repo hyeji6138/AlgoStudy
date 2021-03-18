@@ -23,10 +23,10 @@ public class Solution_13458 {
 		answer = 0;
 		for(int i=0;i<N;i++) {
 			if(room[i] <= B) {
-				answer++; //ÃÑ°¨µ¶°ü ÇÑ¸í ¹èÄ¡
+				answer++; //ì´ê°ë…ê´€ í•œëª… ë°°ì¹˜
 			}else {
-				answer++; //ÃÑ°¨µ¶°ü ÇÑ¸í ¹èÄ¡
-				//ºÎ°¨µ¶°ü ¹èÄ¡
+				answer++; //ì´ê°ë…ê´€ í•œëª… ë°°ì¹˜
+				//ë¶€ê°ë…ê´€ ë°°ì¹˜
 				if((room[i]-B)%C != 0) {
 					answer += (room[i]-B)/C+1;
 				}else {

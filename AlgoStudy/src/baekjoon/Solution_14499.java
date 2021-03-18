@@ -11,7 +11,7 @@ public class Solution_14499 {
 	static int[] move;
 	static int[] dice = {0,0,0,0,0,0};
 	static int[][] turn = {{0,1,2,3,4,5},{3,1,0,5,4,2},{2,1,5,0,4,3},{4,0,2,3,5,1},{1,5,2,3,0,4}};
-	static int[] di = {0,0,0,-1,1}, dj= {0,1,-1,0,0}; // 0µ¿¼­ºÏ³²
+	static int[] di = {0,0,0,-1,1}, dj= {0,1,-1,0,0}; // 0ë™ì„œë¶ë‚¨
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -41,14 +41,14 @@ public class Solution_14499 {
 			int nx = x+ di[move[i]];
 			int ny = y+ dj[move[i]];
 			
-			if(nx < 0 || nx >= N || ny < 0 || ny >= M ) continue; //¹üÀ§ ¹ÛÀÌ¸é
+			if(nx < 0 || nx >= N || ny < 0 || ny >= M ) continue; //ë²”ìœ„ ë°–ì´ë©´
 			
-			turning(move[i]); //ÁÖ»çÀ§ È¸Àü
+			turning(move[i]); //ì£¼ì‚¬ìœ„ íšŒì „
 			
-			if(map[nx][ny] != 0) { // Áöµµ °ªÀÌ 0ÀÌ ¾Æ´Ï¸é Áöµµ¸¦ ÁÖ»çÀ§ ¹Ù´Ú¿¡ º¹»ç
+			if(map[nx][ny] != 0) { // ì§€ë„ ê°’ì´ 0ì´ ì•„ë‹ˆë©´ ì§€ë„ë¥¼ ì£¼ì‚¬ìœ„ ë°”ë‹¥ì— ë³µì‚¬
 				dice[5] = map[nx][ny];
 				map[nx][ny] = 0;
-			}else{// Áöµµ °ªÀÌ 0ÀÌ¸é ÁÖ»çÀ§ ¹Ù´ÚÀ» Áöµµ¿¡ º¹»ç
+			}else{// ì§€ë„ ê°’ì´ 0ì´ë©´ ì£¼ì‚¬ìœ„ ë°”ë‹¥ì„ ì§€ë„ì— ë³µì‚¬
 				map[nx][ny] = dice[5];
 			}
 			x = nx;

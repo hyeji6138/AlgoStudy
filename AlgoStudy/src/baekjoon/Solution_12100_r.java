@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 public class Solution_12100_r {
 	static int N, answer;
 	static int[][] board;
-	static int[] di= {-1,1,0,0}, dj= {0,0,-1,1}, order; //»óÇÏÁÂ¿ì
+	static int[] di= {-1,1,0,0}, dj= {0,0,-1,1}, order; //ìƒí•˜ì¢Œìš°
 	static List<Point> blocks;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -44,7 +44,7 @@ public class Solution_12100_r {
 	static int[][] go(int[][] board, int d, List<Point> block) {
 		PriorityQueue<Point> blockOrder = null;
 		switch(d) {
-		case 0:	//»ó
+		case 0:	//ìƒ
 			blockOrder = new PriorityQueue<Point>(new Comparator<Point>(){
 				@Override
 				public int compare(Point o1, Point o2) {
@@ -52,7 +52,7 @@ public class Solution_12100_r {
 				}
 			});
 			break;
-		case 1: //ÇÏ
+		case 1: //í•˜
 			blockOrder = new PriorityQueue<Point>(new Comparator<Point>(){
 				@Override
 				public int compare(Point o1, Point o2) {
@@ -60,7 +60,7 @@ public class Solution_12100_r {
 				}
 			});
 			break;
-		case 2: //ÁÂ
+		case 2: //ì¢Œ
 			blockOrder = new PriorityQueue<Point>(new Comparator<Point>(){
 				@Override
 				public int compare(Point o1, Point o2) {
@@ -68,7 +68,7 @@ public class Solution_12100_r {
 				}
 			});
 			break;
-		case 3: //¿ì
+		case 3: //ìš°
 			blockOrder = new PriorityQueue<Point>(new Comparator<Point>(){
 				@Override
 				public int compare(Point o1, Point o2) {
@@ -106,7 +106,7 @@ public class Solution_12100_r {
 		return board;
 	}
 	static void perm(int cnt) {
-		if(cnt == 5) { //ÀÌµ¿ ¼ø¼­ Á¤ÇÏ±â
+		if(cnt == 5) { //ì´ë™ ìˆœì„œ ì •í•˜ê¸°
 			int[][] new_board = new int[N][N];
 			for(int i=0;i<N;i++) {
 				for(int j=0;j<N;j++) {
@@ -140,3 +140,4 @@ public class Solution_12100_r {
 		}
 	}
 }
+

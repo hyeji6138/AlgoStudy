@@ -8,13 +8,13 @@ import java.util.StringTokenizer;
 public class Solution_14500 {
 	static int N, M, answer;
 	static int[][] paper;
-	static int[] di = { 0, 1, 0, -1}, dj = { 1, 0, -1, 0}; // ¿ìÇÏÁÂ»ó
+	static int[] di = { 0, 1, 0, -1}, dj = { 1, 0, -1, 0}; // ìš°í•˜ì¢Œìƒ
 	static boolean[][] visit;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken()); // ¼¼·Î Å©±â
-		M = Integer.parseInt(st.nextToken()); // °¡·Î Å©±â
+		N = Integer.parseInt(st.nextToken()); // ì„¸ë¡œ í¬ê¸°
+		M = Integer.parseInt(st.nextToken()); // ê°€ë¡œ í¬ê¸°
 		answer = Integer.MIN_VALUE;
 		paper = new int[N][M];
 		visit = new boolean[N][M];
@@ -24,9 +24,9 @@ public class Solution_14500 {
 				paper[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		// ---------------ÀÔ·Â ³¡
+		// ---------------ì…ë ¥ ë
 		
-		// ¹æÇâÅ°(¤Ç) ¸ğ¾ç»©°í ´Ù Å½»öÇÔ
+		// ë°©í–¥í‚¤(ã…—) ëª¨ì–‘ë¹¼ê³  ë‹¤ íƒìƒ‰í•¨
 		for(int i=0;i<N;i++) {
 			for(int j=0;j<M;j++) {
 				visit[i][j] = true;
@@ -34,7 +34,7 @@ public class Solution_14500 {
 				visit[i][j] = false;
 			}
 		}
-		// ¹æÇâÅ° ¸ğ¾ç Å½»öÇØ¾ßÇÔ
+		// ë°©í–¥í‚¤ ëª¨ì–‘ íƒìƒ‰í•´ì•¼í•¨
 		for(int i=0;i<N;i++) {
 			for(int j=0;j<M;j++) {
 				int sum = paper[i][j];
@@ -49,8 +49,8 @@ public class Solution_14500 {
 					sum += paper[ni][nj];
 					count++;
 				}
-				if(count < 3) continue; // ¤Ç ¸ğ¾ç ¾È¸¸µé¾îÁü
-				else if(count > 3) {// ¤Ç ¸ğ¾ç ¸¹ÀÌ ¸¸µé¾îÁü
+				if(count < 3) continue; // ã…— ëª¨ì–‘ ì•ˆë§Œë“¤ì–´ì§
+				else if(count > 3) {// ã…— ëª¨ì–‘ ë§ì´ ë§Œë“¤ì–´ì§
 					sum -= min;
 				}
 				answer = Math.max(answer, sum);

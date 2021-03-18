@@ -9,89 +9,89 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Solution_14502 {
-	static int N, M, answer; // ¿¬±¸½Ç Å©±â, ¾ÈÀüÁö¿ª ¼ö  ÃÖ´ñ°ª
-	static int[][] lab; // ¿¬±¸½Ç
-	static List<Integer> wall; // º® ¼¼¿ï ¼ö ÀÖ´Â À§Ä¡
-	static int[] pick; // º® ¼¼¿ï °÷ ÁöÁ¤
-	static int[] di = { -1, 1, 0, 0 }; // »óÇÏÁÂ¿ì
-	static int[] dj = { 0, 0, -1, 1 }; // »óÇÏÁÂ¿ì
+	static int N, M, answer; // ì—°êµ¬ì‹¤ í¬ê¸°, ì•ˆì „ì§€ì—­ ìˆ˜  ìµœëŒ“ê°’
+	static int[][] lab; // ì—°êµ¬ì‹¤
+	static List<Integer> wall; // ë²½ ì„¸ìš¸ ìˆ˜ ìˆëŠ” ìœ„ì¹˜
+	static int[] pick; // ë²½ ì„¸ìš¸ ê³³ ì§€ì •
+	static int[] di = { -1, 1, 0, 0 }; // ìƒí•˜ì¢Œìš°
+	static int[] dj = { 0, 0, -1, 1 }; // ìƒí•˜ì¢Œìš°
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken()); // ¿¬±¸½Ç ¼¼·Î
-		M = Integer.parseInt(st.nextToken()); // ¿¬±¸½Ç °¡·Î
-		lab = new int[N][M]; // ¿¬±¸½Ç ÃÊ±âÈ­
-		wall = new ArrayList<Integer>(); // º® ¼¼¿ï ¼ö ÀÖ´Â °÷
-		pick = new int[3]; // º® ¼¼¿ï 3°÷ ¼±ÅÃ
-		answer = Integer.MIN_VALUE; // ÃÖ´ë°ªÀ» ±¸ÇØ¾ßÇÏ´Ï±î ÃÖ¼Ò°ª·Î ÁöÁ¤
-		// ¿¬±¸½Ç »óÅÂ ÀúÀå
+		N = Integer.parseInt(st.nextToken()); // ì—°êµ¬ì‹¤ ì„¸ë¡œ
+		M = Integer.parseInt(st.nextToken()); // ì—°êµ¬ì‹¤ ê°€ë¡œ
+		lab = new int[N][M]; // ì—°êµ¬ì‹¤ ì´ˆê¸°í™”
+		wall = new ArrayList<Integer>(); // ë²½ ì„¸ìš¸ ìˆ˜ ìˆëŠ” ê³³
+		pick = new int[3]; // ë²½ ì„¸ìš¸ 3ê³³ ì„ íƒ
+		answer = Integer.MIN_VALUE; // ìµœëŒ€ê°’ì„ êµ¬í•´ì•¼í•˜ë‹ˆê¹Œ ìµœì†Œê°’ë¡œ ì§€ì •
+		// ì—°êµ¬ì‹¤ ìƒíƒœ ì €ì¥
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < M; j++) {
 				lab[i][j] = Integer.parseInt(st.nextToken());
-				if (lab[i][j] == 0) { // º® ¼¼¿ï ¼ö ÀÖÀ½
+				if (lab[i][j] == 0) { // ë²½ ì„¸ìš¸ ìˆ˜ ìˆìŒ
 					wall.add(i * M + j);
 				}
 			}
 		}
-		go(0, 0); // º® ¼¼¿ï °÷ Á¤ÇÏ¸é¼­ ½Ã¹Ä ½ÃÀÛ
+		go(0, 0); // ë²½ ì„¸ìš¸ ê³³ ì •í•˜ë©´ì„œ ì‹œë®¬ ì‹œì‘
 		System.out.println(answer);
 
 	}
-	// ¾ÈÀü Áö¿ª ¼ö ¼¼±â
+	// ì•ˆì „ ì§€ì—­ ìˆ˜ ì„¸ê¸°
 	public static int areaCnt(int[][] lab) {
-		Queue<Point> q = new LinkedList<Point>(); // ¹ÙÀÌ·¯½º À§Ä¡
+		Queue<Point> q = new LinkedList<Point>(); // ë°”ì´ëŸ¬ìŠ¤ ìœ„ì¹˜
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
-				if (lab[i][j] == 2) { //¹ÙÀÌ·¯½ºÀÌ¸é ÇöÀç À§Ä¡ ÀúÀå
+				if (lab[i][j] == 2) { //ë°”ì´ëŸ¬ìŠ¤ì´ë©´ í˜„ì¬ ìœ„ì¹˜ ì €ì¥
 					q.add(new Point(i, j));
 				}
 			}
 		}
-		while (!q.isEmpty()) { //¹ÙÀÌ·¯½º°¡ ´õÀÌ»ó ÆÛÁöÁö ¾ÊÀ» ¶§±îÁö
+		while (!q.isEmpty()) { //ë°”ì´ëŸ¬ìŠ¤ê°€ ë”ì´ìƒ í¼ì§€ì§€ ì•Šì„ ë•Œê¹Œì§€
 			Point now = q.poll();
 			for (int d = 0; d < 4; d++) {
-				// ¹ÙÀÌ·¯½º°¡ ´ÙÀ½À¸·Î ÆÛÁú À§Ä¡
+				// ë°”ì´ëŸ¬ìŠ¤ê°€ ë‹¤ìŒìœ¼ë¡œ í¼ì§ˆ ìœ„ì¹˜
 				int ni = now.i + di[d];
 				int nj = now.j + dj[d];
 
-				if (ni >= 0 && ni < N && nj >= 0 && nj < M && lab[ni][nj] == 0) { //ÆÛÁú ¼ö ÀÖ´Â ¿ä°ÇÀÌ ¸ÂÀ¸¸é
-					lab[ni][nj] = 2; //ÆÛÁö±â
-					q.add(new Point(ni, nj)); //¶Ç ÆÛÁú ¼ö ÀÖÀ¸´Ï±î Å¥¿¡ ÀúÀå
+				if (ni >= 0 && ni < N && nj >= 0 && nj < M && lab[ni][nj] == 0) { //í¼ì§ˆ ìˆ˜ ìˆëŠ” ìš”ê±´ì´ ë§ìœ¼ë©´
+					lab[ni][nj] = 2; //í¼ì§€ê¸°
+					q.add(new Point(ni, nj)); //ë˜ í¼ì§ˆ ìˆ˜ ìˆìœ¼ë‹ˆê¹Œ íì— ì €ì¥
 				}
 			}
 		}
-		int cnt = 0; // ¾ÈÀüÁö¿ª ¼ö
+		int cnt = 0; // ì•ˆì „ì§€ì—­ ìˆ˜
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
-				if (lab[i][j] == 0) // ¾ÈÀüÁö¿ª ÀÌ¸é Ä«¿îÆ® Áõ°¡
+				if (lab[i][j] == 0) // ì•ˆì „ì§€ì—­ ì´ë©´ ì¹´ìš´íŠ¸ ì¦ê°€
 					cnt++;
 			}
 		}
 		return cnt;
 	}
-	// 3°³ÀÇ º®À» ¼¼¿ï ¼ö ÀÖ´Â °æ¿ìÀÇ ¼ö ´Ù Å½»ö
+	// 3ê°œì˜ ë²½ì„ ì„¸ìš¸ ìˆ˜ ìˆëŠ” ê²½ìš°ì˜ ìˆ˜ ë‹¤ íƒìƒ‰
 	public static void go(int cur, int cnt) {
-		if (cnt == 3) {// º® ¼¼¿ï °÷ ´Ù Á¤ÇÔ
-			int[][] new_lab = new int[N][M]; //¹ÙÀÌ·¯½º ½Ã¹Ä µ¹¸± ¿¬±¸½Ç »õ·Î ¸¸µé±â - ¿øº» ¾È°Çµå¸®·Á°í
+		if (cnt == 3) {// ë²½ ì„¸ìš¸ ê³³ ë‹¤ ì •í•¨
+			int[][] new_lab = new int[N][M]; //ë°”ì´ëŸ¬ìŠ¤ ì‹œë®¬ ëŒë¦´ ì—°êµ¬ì‹¤ ìƒˆë¡œ ë§Œë“¤ê¸° - ì›ë³¸ ì•ˆê±´ë“œë¦¬ë ¤ê³ 
 			for (int ki = 0; ki < N; ki++) {
 				for (int kj = 0; kj < M; kj++) {
 					new_lab[ki][kj] = lab[ki][kj];
 				}
 			}
-			// ÁöÁ¤µÈ °÷¿¡ º® ¼¼¿ì±â
+			// ì§€ì •ëœ ê³³ì— ë²½ ì„¸ìš°ê¸°
 			for (int i = 0; i < 3; i++) {
-				int wall_i = pick[i] / M; // º® ¼¼¿ï i
-				int wall_j = pick[i] % M; // º® ¼¼¿ï j
+				int wall_i = pick[i] / M; // ë²½ ì„¸ìš¸ i
+				int wall_j = pick[i] % M; // ë²½ ì„¸ìš¸ j
 
 				new_lab[wall_i][wall_j] = 1;
 			}
-			int aCnt = areaCnt(new_lab); // ¾ÈÀüÁö¿ª ¼ö ±¸ÇÏ±â
-			answer = Math.max(answer, aCnt); // ¾ÈÀüÁö¿ª ¼ö ÃÖ´ë°ª ±¸ÇÏ±â 
+			int aCnt = areaCnt(new_lab); // ì•ˆì „ì§€ì—­ ìˆ˜ êµ¬í•˜ê¸°
+			answer = Math.max(answer, aCnt); // ì•ˆì „ì§€ì—­ ìˆ˜ ìµœëŒ€ê°’ êµ¬í•˜ê¸° 
 			return;
 		}
-		// Áßº¹x Á¶ÇÕÀ¸·Î º® ¼¼¿ï °÷ ¼±ÅÃ 
+		// ì¤‘ë³µx ì¡°í•©ìœ¼ë¡œ ë²½ ì„¸ìš¸ ê³³ ì„ íƒ 
 		for (int i = cur; i < wall.size(); i++) {
 			pick[cnt] = wall.get(i);
 			go(i + 1, cnt + 1);
