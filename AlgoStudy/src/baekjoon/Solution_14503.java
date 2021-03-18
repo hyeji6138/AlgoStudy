@@ -62,22 +62,22 @@ public class Solution_14503 {
 				ni = robot[0]+di[d];
 				nj = robot[1]+dj[d]; //계속 회전하면서 찾기
 				
-				if(room[ni][nj] == 0) {
+				if(room[ni][nj] == 0) { //청소할 수 있는 곳 찾음 -> 1번으로
 					robot[0] = ni;
 					robot[1] = nj;
 					robot[2] = d;
 					go1();
-					break;
+					return ;
 				}
 			}
 			
-			// 후진 방향
-			int b = (robot[2] + 2) % 4;
+			// 4방향 모두 청소할 곳 없음, 후진
+			int b = (robot[2] + 2) % 4; //후진 방향
 			if(room[robot[0]+di[b]][robot[1]+dj[b]] != 1) { //후진 가능하면
 				robot[0] += di[b];
 				robot[1] += dj[b];
-				go2();
-			}else {
+				go2(); //후진하고 2번으로
+			}else { //로봇 멈춤
 				return ;
 			}
 		}
