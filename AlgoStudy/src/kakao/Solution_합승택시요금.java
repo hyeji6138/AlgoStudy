@@ -35,7 +35,7 @@ public class Solution_합승택시요금 {
         }
         answer = graph[a][s] + graph[b][s];// a,b 따로 갈 때 드는 요금
         for(int i=1;i<n+1;i++) {
-        	int cost = graph[a][i] + graph[b][i] + graph[i][s]; // i번 지점에서 만나서 출발지까지 가는 요금
+        	int cost = graph[a][i] + graph[b][i] + graph[i][s]; // a와 b가 i번 지점에서 만나서 출발지까지 가는 최소 요금
         	if(cost < answer) answer = cost; // 최소값으로 갱신
         	
         }
