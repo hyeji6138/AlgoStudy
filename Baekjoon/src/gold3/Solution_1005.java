@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Solution_1005 {
+public class Solution_1005 { // ACM Craft
 	static int T, N, K, W;
 	static int[] delay;
 	static boolean[][] graph;
