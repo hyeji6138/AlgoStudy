@@ -34,13 +34,6 @@ public class Solution_배달 {
 			}
 		}
 		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= N; j++) {
-				System.out.print(len[i][j] + " ");
-			}
-			System.out.println();
-		}
-
-		for (int i = 1; i <= N; i++) {
 			if (len[1][i] <= K) {
 				answer++;
 			}
