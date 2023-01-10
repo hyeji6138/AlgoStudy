@@ -2,9 +2,9 @@ package level3;
 
 public class Solution_기지국설치 {
 	public static void main(String[] args) {
-		int n = 200000000;
-		int[] stations = { 3 };
-		int w = 1;
+		int n = 10;
+		int[] stations = { 1, 2 };
+		int w = 3;
 		System.out.println(solution(n, stations, w));
 	}
 
@@ -13,9 +13,11 @@ public class Solution_기지국설치 {
 		int start = 1;
 		for (int i = 0; i < stations.length; i++) {
 			int dist = stations[i] - w - start;
-			answer += dist / (1 + 2 * w);
-			if (dist % (1 + 2 * w) != 0) {
-				answer += 1;
+			if (dist > 0) {
+				answer += dist / (1 + 2 * w);
+				if (dist % (1 + 2 * w) != 0) {
+					answer += 1;
+				}
 			}
 			start = stations[i] + w + 1;
 		}
