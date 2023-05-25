@@ -4,39 +4,49 @@ import java.util.Arrays;
 
 public class Solution_가장긴팰린드롬 {
 	public static void main(String[] args) {
-		String s = "aaaa";
+		String s = "abcdcba";
 		System.out.println(solution(s));
 	}
 
 	public static int solution(String s) {
 		int answer = 1;
-
-		for (int std = 0; std < s.length(); std++) {
-			int size = Math.min(std, s.length() - std - 1);
-			char[] charSet = new char[size + 1];
-			for (int i = 0; i <= size; i++) {
-				charSet[i] = s.charAt(std - i);
-			}
-			System.out.println(Arrays.toString(charSet));
+		for (int i = 0; i < s.length(); i++) {
+			// 홀수 길이 확인
+			int start = i - 1, end = i + 1;
 			int len = 1;
-			for (int i = 1; i <= size; i++) {
-				if (s.charAt(std + i) != charSet[i]) {
+			while (true) {
+				if (start < 0 || end >= s.length()) {
 					break;
 				}
-				len += 2;
 
+				if (s.charAt(start) == s.charAt(end)) {
+					start -= 1;
+					end += 1;
+					len += 2;
+				} else {
+					break;
+				}
 			}
-			answer = Math.max(answer, len);
+			answer = Math.max(len, answer);
+			// 짝수 길이 확인
+			start = i;
+			end = i + 1;
 			len = 0;
-			for (int i = 0; i <= size; i++) {
-				if (s.charAt(std + 1 + i) != charSet[i]) {
+			while (true) {
+				if (start < 0 || end >= s.length()) {
 					break;
 				}
-				len += 2;
-			}
-			answer = Math.max(answer, len);
-		}
 
+				if (s.charAt(start) == s.charAt(end)) {
+					start -= 1;
+					end += 1;
+					len += 2;
+				} else {
+					break;
+				}
+			}
+			answer = Math.max(len, answer);
+		}
 		return answer;
 	}
 
