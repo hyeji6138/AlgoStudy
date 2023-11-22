@@ -25,9 +25,7 @@ public class Solution_풍선터트리기 {
 				rightMin[a.length - 1 - i] = rightMin[a.length - i];
 			}
 		}
-		for (int i = 0; i < a.length; i++) {
-			System.out.println(leftMin[i] + " " + rightMin[i]);
-		}
+		
 		for (int i = 0; i < a.length; i++) {
 			if (a[i] <= leftMin[i] || a[i] <= rightMin[i]) {
 				answer++;
