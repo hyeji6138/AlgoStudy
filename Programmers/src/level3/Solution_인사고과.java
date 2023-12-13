@@ -25,7 +25,11 @@ public class Solution_인사고과 {
 					answer += 1;
 				}
 			}
-			System.out.println(Arrays.toString(scores[i]) + " " + maxScore + " " + answer);
+//			else {
+//				if(scores[i].equals(wanho)) {
+//					return -1;
+//				}
+//			}
 		}
 		return answer;
 	}
