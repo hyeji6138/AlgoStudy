@@ -1,10 +1,10 @@
 package level3;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Solution_기둥과보설치 {
+	static int[][][] map;
+
 	public static void main(String[] args) {
 		int n = 5;
 		int[][] build_frame = { { 0, 0, 0, 1 }, { 2, 0, 0, 1 }, { 4, 0, 0, 1 }, { 0, 1, 1, 1 }, { 1, 1, 1, 1 },
@@ -13,64 +13,87 @@ public class Solution_기둥과보설치 {
 	}
 
 	static public int[][] solution(int n, int[][] build_frame) {
-		int[][] map = new int[n + 1][n + 1];
-		for (int i = 0; i <= n; i++) {
-			for (int j = 0; j <= n; j++) {
-				map[i][j] = -1;
-			}
-		}
+		map = new int[n + 1][n + 1][2];
+		int cnt = 0;
 		for (int i = 0; i < build_frame.length; i++) {
-			map = go(n, map, build_frame[i]);
-		}
-		List<int[]> list = new ArrayList<int[]>();
-		for (int i = 0; i <= n; i++) {
-			for (int j = 0; j <= n; j++) {
-				if (map[i][j] != -1) {
-					list.add(new int[] { i, j, map[i][j] });
+			int x = build_frame[i][0];
+			int y = build_frame[i][1];
+			int a = build_frame[i][2];
+			int b = build_frame[i][3];
+
+			if (b == 1) { // 설치
+				if (isPossible(n, x, y, a)) {
+					map[x][y][a] = 1;
+					cnt += 1;
+				}
+			} else { // 삭제
+				map[x][y][a] = 0;
+				boolean isPos = true;
+				if (a == 0) { // 기둥 삭제
+					if (y < n && map[x][y + 1][0] == 1 && !isPossible(n, x, y + 1, 0)) {
+						isPos = false;
+					} else if (y < n - 1 && map[x][y + 1][1] == 1 && !isPossible(n, x, y + 1, 1)) {
+						isPos = false;
+					} else if (x > 0 && y < n - 1 && map[x - 1][y + 1][1] == 1 && !isPossible(n, x - 1, y + 1, 1)) {
+						isPos = false;
+					}
+				} else { // 보 삭제
+					if (map[x][y][0] == 1 && !isPossible(n, x, y, 0)) {
+						isPos = false;
+					} else if (x < n && map[x + 1][y][0] == 1 && !isPossible(n, x + 1, y, 0)) {
+						isPos = false;
+					} else if (x > 0 && map[x - 1][y][1] == 1 && !isPossible(n, x - 1, y, 1)) {
+						isPos = false;
+					} else if (x < n - 1 && map[x + 1][y][1] == 1 && !isPossible(n, x + 1, y, 1)) {
+						isPos = false;
+					}
+				}
+				if (!isPos) {
+					map[x][y][a] = 1;
+				} else {
+					cnt -= 1;
 				}
 			}
 		}
-		int[][] answer = new int[list.size()][3];
-		for (int i = 0; i < list.size(); i++) {
-			for (int j = 0; j < 3; j++) {
-				answer[i][j] = list.get(i)[j];
+		int[][] answer = new int[cnt][3];
+		cnt = 0;
+		for (int i = 0; i <= n; i++) {
+			for (int j = 0; j <= n; j++) {
+				for (int a = 0; a < 2; a++) {
+					if (map[i][j][a] == 1) {
+						answer[cnt][0] = i;
+						answer[cnt][1] = j;
+						answer[cnt][2] = a;
+						cnt += 1;
+					}
+				}
 			}
 		}
 		return answer;
 	}
 
-	static public int[][] go(int n, int[][] map, int[] frame) {
-		int[][] result = new int[n + 1][n + 1];
-		for (int i = 0; i <= n; i++) {
-			for (int j = 0; j <= n; j++) {
-				result[i][j] = map[i][j];
+	static public boolean isPossible(int n, int x, int y, int a) {
+		boolean result = false;
+		if (a == 0) { // 기둥 설치
+			if (y == 0) {
+				result = true;
+			} else if (y > 0 && map[x][y - 1][0] == 1) {
+				result = true;
+			} else if (x > 0 && map[x - 1][y][1] == 1) {
+				result = true;
+			} else if (x < n && map[x][y][1] == 1) {
+				result = true;
+			}
+		} else { // 보 설치
+			if (y > 0 && map[x][y - 1][0] == 1) {
+				result = true;
+			} else if (y > 0 && map[x + 1][y - 1][0] == 1) {
+				result = true;
+			} else if (x > 0 && x < n - 1 && map[x - 1][y][1] == 1 && map[x + 1][y][1] == 1) {
+				result = true;
 			}
 		}
-		if (frame[3] == 0) { // 삭제
-			result[frame[0]][frame[1]] = -1;
-		} else {
-			result[frame[0]][frame[1]] = frame[2];
-		}
-		boolean check = true;
-		for (int x = 0; x <= n && check; x++) {
-			for (int y = 0; y <= n && check; y++) {
-				if (result[x][y] == 0) {
-					if (y != 0 && result[x][y - 1] != 0 && (x > 0 && result[x - 1][y] != 1)) {
-						check = false;
-					}
-				} else if (result[x][y] == 1) {
-					if (result[x][y - 1] != 0 && result[x + 1][y - 1] != 0
-							&& (x > 0 && result[x - 1][y] != 1 || result[x + 1][y] != 1)) {
-						check = false;
-					}
-				}
-			}
-		}
-		if (check) {
-			return result;
-		} else {
-			return map;
-		}
+		return result;
 	}
 
 	static public void printArray(int[][] array) {
